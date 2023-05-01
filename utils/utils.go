@@ -22,9 +22,13 @@ func getRandomLetter() string {
 	return string(alphabet[rand.Intn(len(alphabet))])
 }
 
-func randomizeWithSymbols(str string) string {
+func getRandomSpecialCharacters() rune {
 	specialChars := []rune{'!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '[', ']', '{', '}', '|', '\\', ';', ':', '"', '\'', ',', '<', '.', '>', '/', '?'}
+	rand.Seed(time.Now().UnixNano())
+	return specialChars[rand.Intn(len(specialChars))]
+}
 
+func randomizeWithSymbols(str string) string {
 	chars := []rune(str)
 	if len(chars) <= 2 {
 		return str
@@ -38,13 +42,8 @@ func randomizeWithSymbols(str string) string {
 		replacePoints = append(replacePoints, getRandomInt(randomNumRange[0], randomNumRange[1]))
 	}
 
-	selectedSpecialCharacters := []rune{}
-	for j := 0; j < iterations; j++ {
-		selectedSpecialCharacters = append(selectedSpecialCharacters, specialChars[getRandomInt(0, (len(specialChars)-1))])
-	}
-
 	for k := 0; k < iterations; k++ {
-		chars[k] = selectedSpecialCharacters[k]
+		chars[k] = getRandomSpecialCharacters()
 	}
 
 	return string(chars)
