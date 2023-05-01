@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"encoding/base64"
 	"fmt"
 	"math"
 	"os/exec"
@@ -50,4 +51,73 @@ func (p Passwords) Generate(length *int) (*string, error) {
 
 	password = randomizeWithSymbols(password)
 	return &password, nil
+}
+
+// GenerateAlpha is a function is a function that is used to genrate a password
+// that only contains alphabetical characters only
+func (p Passwords) GenerateAlpha(length *int) (*string, error) {
+	passwordLength := 32
+	if length != nil {
+		passwordLength = *length
+		if passwordLength <= 2 {
+			return nil, fmt.Errorf("Password length is not sufficent for password generation")
+		}
+	}
+
+	var password string
+	for i := 0; i < passwordLength; i++ {
+		password += getRandomLetter()
+	}
+
+	return &password, nil
+}
+
+// GenerateNumeric is a function that is used to generate  a passwrd that is entirely
+// numeric
+func (p Passwords) GenerateNumeric(length *int) (*string, error) {
+	passwordLength := 32
+	if length != nil {
+		passwordLength = *length
+		if passwordLength <= 2 {
+			return nil, fmt.Errorf("Password length is not sufficent for password generation")
+		}
+	}
+
+	var password string
+	for i := 0; i < passwordLength; i++ {
+		password += fmt.Sprint(getRandomInt(0, 9))
+	}
+
+	return &password, nil
+}
+
+// GenerateSpecialChars is a function that is used to generate passwords that only
+// contains special characters
+func (p Passwords) GenerateSpecialChars(length *int) (*string, error) {
+	passwordLength := 32
+	if length != nil {
+		passwordLength = *length
+		if passwordLength <= 2 {
+			return nil, fmt.Errorf("Password length is not sufficent for password generation")
+		}
+	}
+
+	var password string
+	for i := 0; i < passwordLength; i++ {
+		password += string(getRandomSpecialCharacters())
+	}
+
+	return &password, nil
+}
+
+// GenerateBase64 is a function that is used ot generate passwords in
+// base 64 format
+func (p Passwords) GenerateBase64(length *int) (*string, error) {
+	password, err := p.Generate(length)
+	if err != nil {
+		return nil, err
+	}
+
+	encoded := base64.StdEncoding.EncodeToString([]byte(*password))
+	return &encoded, nil
 }
