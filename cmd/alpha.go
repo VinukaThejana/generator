@@ -31,7 +31,7 @@ contain completly alphabetical characters
 			return
 		}
 
-		generator := utils.Passwords{}
+		generator := utils.Generator{}
 		passwd, err := generator.GenerateAlpha(&length)
 		if err != nil {
 			color.Red("Failed to generate password")

@@ -59,7 +59,7 @@ var rootCmd = &cobra.Command{
 			return
 		}
 
-		generator := utils.Passwords{}
+		generator := utils.Generator{}
 		pass, err := generator.Generate(&length)
 		if err != nil {
 			return

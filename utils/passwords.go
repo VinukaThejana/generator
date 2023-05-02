@@ -8,14 +8,14 @@ import (
 	"strings"
 )
 
-// Passwords struct contains all the possible ways that a password
+// Generator struct contains all the possible ways that a password
 // can be generated with this application
-type Passwords struct{}
+type Generator struct{}
 
 // Generate is used to generate a passsword that has a default length
 // of 32 (unless changed) and contains letters (upper and lower)
 // , symbols and numeric characters
-func (p Passwords) Generate(length *int) (*string, error) {
+func (g Generator) Generate(length *int) (*string, error) {
 	isOdd := false
 	passwordLength := 32
 
@@ -55,7 +55,7 @@ func (p Passwords) Generate(length *int) (*string, error) {
 
 // GenerateAlpha is a function is a function that is used to genrate a password
 // that only contains alphabetical characters only
-func (p Passwords) GenerateAlpha(length *int) (*string, error) {
+func (g Generator) GenerateAlpha(length *int) (*string, error) {
 	passwordLength := 32
 	if length != nil {
 		passwordLength = *length
@@ -74,7 +74,7 @@ func (p Passwords) GenerateAlpha(length *int) (*string, error) {
 
 // GenerateNumeric is a function that is used to generate  a passwrd that is entirely
 // numeric
-func (p Passwords) GenerateNumeric(length *int) (*string, error) {
+func (g Generator) GenerateNumeric(length *int) (*string, error) {
 	passwordLength := 32
 	if length != nil {
 		passwordLength = *length
@@ -93,7 +93,7 @@ func (p Passwords) GenerateNumeric(length *int) (*string, error) {
 
 // GenerateSpecialChars is a function that is used to generate passwords that only
 // contains special characters
-func (p Passwords) GenerateSpecialChars(length *int) (*string, error) {
+func (g Generator) GenerateSpecialChars(length *int) (*string, error) {
 	passwordLength := 32
 	if length != nil {
 		passwordLength = *length
@@ -112,8 +112,8 @@ func (p Passwords) GenerateSpecialChars(length *int) (*string, error) {
 
 // GenerateBase64 is a function that is used ot generate passwords in
 // base 64 format
-func (p Passwords) GenerateBase64(length *int) (*string, error) {
-	password, err := p.Generate(length)
+func (g Generator) GenerateBase64(length *int) (*string, error) {
+	password, err := g.Generate(length)
 	if err != nil {
 		return nil, err
 	}

@@ -30,7 +30,7 @@ var numericCmd = &cobra.Command{
 			return
 		}
 
-		generator := utils.Passwords{}
+		generator := utils.Generator{}
 		passwd, err := generator.GenerateNumeric(&length)
 		if err != nil {
 			color.Red("Failed to generate the password")

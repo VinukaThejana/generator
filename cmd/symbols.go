@@ -30,7 +30,7 @@ Generate a password that only consists of symbols
 			return
 		}
 
-		generator := utils.Passwords{}
+		generator := utils.Generator{}
 		paswd, err := generator.GenerateSpecialChars(&length)
 		if err != nil {
 			color.Red("Failed to generate password")

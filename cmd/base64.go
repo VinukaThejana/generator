@@ -30,7 +30,7 @@ var base64Cmd = &cobra.Command{
 			return
 		}
 
-		generator := utils.Passwords{}
+		generator := utils.Generator{}
 		pass, err := generator.GenerateBase64(&length)
 		if err != nil {
 			color.Red("Failed to generate password")
