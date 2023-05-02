@@ -2,3 +2,4 @@
 # Remove build folders
 ./build/
 
+build/generator
