@@ -45,7 +45,7 @@ func TestRandomizeWithSymbols(t *testing.T) {
 // TestGenerate is a function that is used ot check wether passowrds are generated properly
 // with the given conditions
 func TestGenerate(t *testing.T) {
-	p := Passwords{}
+	g := Generator{}
 
 	tests := []int{0, 12, 48, 47, 32, 33, 99, 120}
 	for _, test := range tests {
@@ -53,7 +53,7 @@ func TestGenerate(t *testing.T) {
 		expectedLength := 32
 
 		if test == 0 {
-			pswd, err := p.Generate(nil)
+			pswd, err := g.Generate(nil)
 			if err != nil {
 				log.Println(err)
 				t.Error("Failed to generate password")
@@ -62,7 +62,7 @@ func TestGenerate(t *testing.T) {
 			password = *pswd
 		} else {
 			expectedLength = test
-			pswd, err := p.Generate(&test)
+			pswd, err := g.Generate(&test)
 			if err != nil {
 				log.Println(err)
 				t.Error("Failed to generate the password")
