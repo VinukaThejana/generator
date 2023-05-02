@@ -34,16 +34,23 @@ func randomizeWithSymbols(str string) string {
 		return str
 	}
 
-	randomNumRange := [2]int{0, (len(chars) - 1)}
-
-	iterations := getRandomInt(randomNumRange[0], randomNumRange[1])
-	replacePoints := []int{}
-	for i := 0; i < iterations; i++ {
-		replacePoints = append(replacePoints, getRandomInt(randomNumRange[0], randomNumRange[1]))
+	// Random number with the range
+	randomNumRange := struct {
+		Min int
+		Max int
+	}{
+		Min: 0,
+		Max: len(chars),
 	}
 
-	for k := 0; k < iterations; k++ {
-		chars[k] = getRandomSpecialCharacters()
+	iterations := getRandomInt(randomNumRange.Min, randomNumRange.Max-1)
+	replacePoints := []int{}
+	for i := 0; i < iterations; i++ {
+		replacePoints = append(replacePoints, getRandomInt(randomNumRange.Min, randomNumRange.Max-1))
+	}
+
+	for _, index := range replacePoints {
+		chars[index] = getRandomSpecialCharacters()
 	}
 
 	return string(chars)
