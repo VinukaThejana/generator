@@ -18,6 +18,7 @@ type Generator struct{}
 func (g Generator) Generate(length *int) (*string, error) {
 	isOdd := false
 	passwordLength := 32
+	errors := Errors{}
 
 	if length != nil {
 		passwordLength = *length
@@ -26,7 +27,7 @@ func (g Generator) Generate(length *int) (*string, error) {
 		}
 	}
 	if passwordLength <= 1 {
-		return nil, fmt.Errorf("Password length is not sufficent for password generation")
+		return nil, fmt.Errorf(errors.ToShort())
 	}
 
 	passwordLength = int(math.Ceil(float64(passwordLength)/2.0) * 2.0)
@@ -57,10 +58,12 @@ func (g Generator) Generate(length *int) (*string, error) {
 // that only contains alphabetical characters only
 func (g Generator) GenerateAlpha(length *int) (*string, error) {
 	passwordLength := 32
+	errors := Errors{}
+
 	if length != nil {
 		passwordLength = *length
 		if passwordLength <= 2 {
-			return nil, fmt.Errorf("Password length is not sufficent for password generation")
+			return nil, fmt.Errorf(errors.ToShort())
 		}
 	}
 
@@ -76,10 +79,12 @@ func (g Generator) GenerateAlpha(length *int) (*string, error) {
 // numeric
 func (g Generator) GenerateNumeric(length *int) (*string, error) {
 	passwordLength := 32
+	errors := Errors{}
+
 	if length != nil {
 		passwordLength = *length
 		if passwordLength <= 2 {
-			return nil, fmt.Errorf("Password length is not sufficent for password generation")
+			return nil, fmt.Errorf(errors.ToShort())
 		}
 	}
 
@@ -95,10 +100,12 @@ func (g Generator) GenerateNumeric(length *int) (*string, error) {
 // contains special characters
 func (g Generator) GenerateSpecialChars(length *int) (*string, error) {
 	passwordLength := 32
+	errors := Errors{}
+
 	if length != nil {
 		passwordLength = *length
 		if passwordLength <= 2 {
-			return nil, fmt.Errorf("Password length is not sufficent for password generation")
+			return nil, fmt.Errorf(errors.ToShort())
 		}
 	}
 

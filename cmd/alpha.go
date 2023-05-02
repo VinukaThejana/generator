@@ -15,26 +15,26 @@ var alphaCmd = &cobra.Command{
 	Use:   "alpha",
 	Short: "Generate passowrds with only alphabetical characters",
 	Long: `
-If this option is provided then the generated password will only
-contain completly alphabetical characters
+  The generated password will only contain alphabetical characters
   ex :- abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
   `,
 	Run: func(cmd *cobra.Command, args []string) {
+		errors := utils.Errors{}
 		length, err := cmd.Flags().GetInt("length")
 		if err != nil {
-			color.Red("Failed to generate password")
+			color.Red(errors.FailedToGenerate())
 			return
 		}
 
 		if length <= 2 {
-			color.Red("Password length provided is not sufficient")
+			color.Red(errors.ToShort())
 			return
 		}
 
 		generator := utils.Generator{}
 		passwd, err := generator.GenerateAlpha(&length)
 		if err != nil {
-			color.Red("Failed to generate password")
+			color.Red(errors.FailedToGenerate())
 			return
 		}
 

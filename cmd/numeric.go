@@ -13,27 +13,28 @@ import (
 // numericCmd represents the numeric command
 var numericCmd = &cobra.Command{
 	Use:   "numeric",
-	Short: "Generate a numeric only password",
+	Short: "Generate a password that only contains numeric characters",
 	Long: `
-  Generate a password that only consists of numeric only characters
+  Generates a password that only contains numbers
     ex :- 0123456789
   `,
 	Run: func(cmd *cobra.Command, args []string) {
+		errors := utils.Errors{}
 		length, err := cmd.Flags().GetInt("length")
 		if err != nil {
-			color.Red("Failed to generate the password")
+			color.Red(errors.FailedToGenerate())
 			return
 		}
 
 		if length <= 2 {
-			color.Red("Password length is not sufficient to generate the password")
+			color.Red(errors.ToShort())
 			return
 		}
 
 		generator := utils.Generator{}
 		passwd, err := generator.GenerateNumeric(&length)
 		if err != nil {
-			color.Red("Failed to generate the password")
+			color.Red(errors.FailedToGenerate())
 			return
 		}
 

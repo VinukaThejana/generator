@@ -48,14 +48,15 @@ var rootCmd = &cobra.Command{
           ex :- PQChcGzWyrbVMCLRhoykGw6U9L+R/+/sgx6JorH1mPY=
   `,
 	Run: func(cmd *cobra.Command, args []string) {
+		errors := utils.Errors{}
 		length, err := cmd.Flags().GetInt("length")
 		if err != nil {
-			color.Red("Invalid format provided")
+			color.Red(errors.FailedToGenerate())
 			return
 		}
 
 		if length <= 2 {
-			color.Red("Length provided was invalid")
+			color.Red(errors.ToShort())
 			return
 		}
 

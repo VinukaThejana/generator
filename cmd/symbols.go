@@ -15,25 +15,26 @@ var symbolsCmd = &cobra.Command{
 	Use:   "symbols",
 	Short: "Generate a password that consists only symbols",
 	Long: `
-Generate a password that only consists of symbols
-  ex :- #$%^&*#@@%^^
+  Generated password only contains special symbols
+    ex :- #$%^&*#@@%^^
 `,
 	Run: func(cmd *cobra.Command, args []string) {
+		errors := utils.Errors{}
 		length, err := cmd.Flags().GetInt("length")
 		if err != nil {
-			color.Red("Failed to generate password")
+			color.Red(errors.FailedToGenerate())
 			return
 		}
 
 		if length <= 2 {
-			color.Red("Failed to generate password")
+			color.Red(errors.ToShort())
 			return
 		}
 
 		generator := utils.Generator{}
 		paswd, err := generator.GenerateSpecialChars(&length)
 		if err != nil {
-			color.Red("Failed to generate password")
+			color.Red(errors.FailedToGenerate())
 			return
 		}
 
