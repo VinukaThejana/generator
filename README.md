@@ -10,7 +10,7 @@ To install `generator` follow the steps below:
 
 2. Open the terminal and type the following command
   ```
-  go get github.com/VinukaThejana/generator
+  go install github.com/VinukaThejana/generator@latest
   ```
 
 ## Usage
